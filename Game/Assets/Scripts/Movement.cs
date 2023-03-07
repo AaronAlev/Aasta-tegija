@@ -7,6 +7,11 @@ public class Movement : MonoBehaviour
     public float moveSpeed;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
+    public bool isDashing = false;
+    
+    SpriteRenderer sprite;
+    public Color dashColor = Color.white;
+    public Color normColor;
 
     private float activeMoveSpeed;
     public float dashSpeed;
@@ -20,6 +25,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         activeMoveSpeed = moveSpeed;
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -29,12 +35,13 @@ public class Movement : MonoBehaviour
         moveInput.y = Input.GetAxisRaw("Vertical");
 
         moveInput.Normalize();
-        rb2d.velocity = moveInput * moveSpeed;
+        rb2d.velocity = moveInput * activeMoveSpeed;
 
         if (Input.GetKeyDown(KeyCode.Space)){
             if (dashCoolCounter <=0 && dashCounter <= 0){
                 activeMoveSpeed = dashSpeed;
                 dashCounter = dashLenght;
+                isDashing = true;
             }
         }
 
@@ -43,11 +50,19 @@ public class Movement : MonoBehaviour
             if (dashCounter <= 0){
                 activeMoveSpeed = moveSpeed;
                 dashCoolCounter = dashCooldown;
+                isDashing = false;
             }
         }
 
         if (dashCoolCounter > 0){
             dashCoolCounter -= Time.deltaTime;
+        }
+
+        if (isDashing==true){
+            sprite.color = dashColor;
+        }
+        else{
+            sprite.color = normColor;
         }
     }
 }
