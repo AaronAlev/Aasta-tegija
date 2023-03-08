@@ -9,7 +9,6 @@ public class NPC : MonoBehaviour
     public GameObject noQuestDoneText;
     public int timesTalkenTo = 0;
     private int questsDone = 0;
-
     void OnMouseDown(){
         if (timesTalkenTo==0){
             canvas.SetActive(true);

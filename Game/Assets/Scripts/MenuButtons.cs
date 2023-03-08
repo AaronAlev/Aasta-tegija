@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 public class MenuButtons : MonoBehaviour
 {
     public void PlayGame () {
-        SceneManager.LoadScene("Room2");
+        SceneManager.LoadScene("The_Map");
     }
 
     public void QuitGame () {
